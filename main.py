@@ -51,6 +51,7 @@ def _handle_action(state: GameState, bird: Bird, pipe_manager: PipeManager,
 
 
 async def main() -> None:
+    pygame.mixer.pre_init(22050, -16, 1, 512)  # must be before pygame.init()
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Flappy Bird")

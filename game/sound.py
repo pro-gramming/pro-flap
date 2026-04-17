@@ -31,8 +31,10 @@ class SoundManager:
     def __init__(self) -> None:
         self._enabled = False
         try:
-            pygame.mixer.pre_init(_SAMPLE_RATE, -16, 1, 512)
-            pygame.mixer.init()
+            # pre_init must have been called before pygame.init() in main.py.
+            # If mixer is not yet running, initialise it now with our settings.
+            if not pygame.mixer.get_init():
+                pygame.mixer.init(_SAMPLE_RATE, -16, 1, 512)
             self._enabled = True
         except pygame.error:
             return  # audio unavailable — all play_*() calls become no-ops
